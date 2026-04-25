@@ -14,9 +14,10 @@ export function Contact() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const form = e.currentTarget;
     setStatus("loading");
     setError("");
-    const fd = new FormData(e.currentTarget);
+    const fd = new FormData(form);
     const payload = {
       name: String(fd.get("name") ?? "").trim(),
       email: String(fd.get("email") ?? "").trim(),
@@ -32,7 +33,7 @@ export function Contact() {
       const data = (await res.json().catch(() => ({}))) as { error?: string };
       if (!res.ok) throw new Error(data.error ?? "Gagal mengirim pesan.");
       setStatus("success");
-      e.currentTarget.reset();
+      form.reset();
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Gagal mengirim pesan.");
