@@ -17,6 +17,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Format request tidak valid." }, { status: 400 });
   }
 
+  if (body === null || typeof body !== "object" || Array.isArray(body)) {
+    return NextResponse.json({ error: "Format request tidak valid." }, { status: 400 });
+  }
+
   const name = typeof body.name === "string" ? body.name.trim() : "";
   const email = typeof body.email === "string" ? body.email.trim() : "";
   const subject = typeof body.subject === "string" ? body.subject.trim() : "";
