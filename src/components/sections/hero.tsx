@@ -139,7 +139,7 @@ export function Hero() {
                 ~/{personal.name.toLowerCase()}.dev
               </p>
               <pre className="mt-2 rounded-lg bg-muted px-3 py-2 font-mono text-[11px] text-muted-foreground">
-{`> hire(${personal.name.toLowerCase()})\n${"  "}// status: available ✓`}
+{`> hire(${personal.name.toLowerCase()})\n${"  "}// status: ${personal.available ? "available ✓" : "busy ✗"}`}
               </pre>
             </div>
           </div>
