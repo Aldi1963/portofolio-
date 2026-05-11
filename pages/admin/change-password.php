@@ -2,6 +2,11 @@
 /**
  * Admin - Change Password
  */
+if (!hasRole('admin')) {
+    setFlash('error', 'Access denied. Admin only.');
+    redirect(baseUrl('admin/dashboard'));
+}
+
 $adminPage = 'settings';
 $adminTitle = 'Change Password';
 

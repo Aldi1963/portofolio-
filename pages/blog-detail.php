@@ -63,6 +63,25 @@ $pageDescription = $post['meta_description'] ?: truncateText($post['excerpt'] ??
 $pageImage = !empty($post['thumbnail']) ? uploadUrl($post['thumbnail']) : '';
 $pageType = 'article';
 include TEMPLATES_PATH . '/header.php';
+
+// Article Schema Markup (JSON-LD)
+echo schemaMarkup('Article', [
+    'headline' => $post['title'],
+    'author' => [
+        '@type' => 'Person',
+        'name' => $post['author_name'] ?? getSetting('owner_name', 'Admin'),
+    ],
+    'datePublished' => date('c', strtotime($post['published_at'])),
+    'dateModified' => date('c', strtotime($post['updated_at'] ?? $post['published_at'])),
+    'image' => !empty($post['thumbnail']) ? uploadUrl($post['thumbnail']) : '',
+    'description' => truncateText($post['excerpt'] ?? $post['content'], 160),
+    'publisher' => [
+        '@type' => 'Organization',
+        'name' => getSetting('site_name', APP_NAME),
+        'url' => APP_URL,
+    ],
+    'mainEntityOfPage' => baseUrl('blog/detail/' . $post['slug']),
+]);
 ?>
 
 <!-- Breadcrumb -->

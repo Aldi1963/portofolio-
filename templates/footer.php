@@ -103,5 +103,18 @@
     <?php if (!empty(config('recaptcha_site_key'))): ?>
     <script src="https://www.google.com/recaptcha/api.js?render=<?= config('recaptcha_site_key') ?>"></script>
     <?php endif; ?>
+
+    <!-- Service Worker Registration -->
+    <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                console.log('SW registered:', registration.scope);
+            }).catch(function(error) {
+                console.log('SW registration failed:', error);
+            });
+        });
+    }
+    </script>
 </body>
 </html>

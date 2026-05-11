@@ -134,6 +134,13 @@ $user = currentUser();
                 </li>
                 
                 <li class="menu-label">System</li>
+                <?php if (hasRole('admin')): ?>
+                <li class="menu-item <?= $adminPage === 'users' ? 'active' : '' ?>">
+                    <a href="<?= baseUrl('admin/users') ?>">
+                        <i class="fas fa-users-cog"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
                 <li class="menu-item <?= $adminPage === 'activity-log' ? 'active' : '' ?>">
                     <a href="<?= baseUrl('admin/activity-log') ?>">
                         <i class="fas fa-history"></i>
@@ -158,6 +165,7 @@ $user = currentUser();
                         <span>Backup</span>
                     </a>
                 </li>
+                <?php endif; ?>
                 <li class="menu-item">
                     <a href="<?= baseUrl() ?>" target="_blank">
                         <i class="fas fa-external-link-alt"></i>

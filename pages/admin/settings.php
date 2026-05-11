@@ -4,6 +4,11 @@
  * Dynamic configuration management from dashboard
  * Groups: general, profile, social, home, contact, mail, integration, security
  */
+if (!hasRole('admin')) {
+    setFlash('error', 'Access denied. Admin only.');
+    redirect(baseUrl('admin/dashboard'));
+}
+
 $adminPage = 'settings';
 $adminTitle = 'Settings';
 

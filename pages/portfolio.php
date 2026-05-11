@@ -69,6 +69,11 @@ try {
                 <span class="separator"><i class="fas fa-chevron-right"></i></span>
                 <span class="current">Portfolio</span>
             </div>
+            <div style="margin-top:16px;">
+                <a href="<?= baseUrl('portfolio/pdf') ?>" class="btn btn-outline" style="font-size:0.85rem;">
+                    <i class="fas fa-file-pdf"></i> Download PDF
+                </a>
+            </div>
         </div>
     </div>
 </section>

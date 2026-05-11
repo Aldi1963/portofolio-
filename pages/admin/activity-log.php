@@ -3,6 +3,11 @@
  * Admin - Activity Log
  * Shows recent user activity
  */
+if (!hasRole('admin')) {
+    setFlash('error', 'Access denied. Admin only.');
+    redirect(baseUrl('admin/dashboard'));
+}
+
 $adminPage = 'activity-log';
 $adminTitle = 'Activity Log';
 

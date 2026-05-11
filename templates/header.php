@@ -20,6 +20,20 @@ $bodyClass = $bodyClass ?? '';
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="<?= asset('images/favicon.png') ?>">
     
+    <!-- PWA Support -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0066ff">
+
+    <!-- Schema.org WebSite Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "<?= getSetting('site_name', APP_NAME) ?>",
+        "url": "<?= APP_URL ?>"
+    }
+    </script>
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

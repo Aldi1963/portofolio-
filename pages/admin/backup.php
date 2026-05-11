@@ -3,6 +3,11 @@
  * Admin - Database Backup
  * Export database as SQL file download
  */
+if (!hasRole('admin')) {
+    setFlash('error', 'Access denied. Admin only.');
+    redirect(baseUrl('admin/dashboard'));
+}
+
 $adminPage = 'backup';
 $adminTitle = 'Database Backup';
 

@@ -59,6 +59,20 @@ $pageTitle = $project['title'];
 $pageDescription = $project['short_description'] ?? truncateText($project['description'], 160);
 $pageImage = !empty($project['thumbnail']) ? uploadUrl($project['thumbnail']) : '';
 include TEMPLATES_PATH . '/header.php';
+
+// CreativeWork Schema Markup (JSON-LD)
+echo schemaMarkup('CreativeWork', [
+    'name' => $project['title'],
+    'description' => $project['short_description'] ?? truncateText(strip_tags($project['description']), 160),
+    'image' => !empty($project['thumbnail']) ? uploadUrl($project['thumbnail']) : '',
+    'author' => [
+        '@type' => 'Person',
+        'name' => getSetting('owner_name', 'Aldi'),
+    ],
+    'dateCreated' => !empty($project['project_date']) ? date('c', strtotime($project['project_date'])) : date('c', strtotime($project['created_at'])),
+    'url' => baseUrl('portfolio/detail/' . $project['id']),
+    'genre' => $project['category_name'] ?? 'Project',
+]);
 ?>
 
 <!-- Page Header -->

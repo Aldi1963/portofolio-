@@ -513,3 +513,21 @@ function metaTags($title = '', $description = '', $image = '', $type = 'website'
     
     return $meta;
 }
+
+
+/**
+ * Generate JSON-LD Schema Markup
+ * @param string $type Schema.org type (e.g., 'Person', 'Article', 'CreativeWork')
+ * @param array $data Key-value pairs for the schema properties
+ * @return string HTML script tag with JSON-LD markup
+ */
+function schemaMarkup($type, $data) {
+    $schema = [
+        '@context' => 'https://schema.org',
+        '@type' => $type,
+    ];
+    
+    $schema = array_merge($schema, $data);
+    
+    return '<script type="application/ld+json">' . "\n" . json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . "\n" . '</script>';
+}

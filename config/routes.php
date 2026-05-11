@@ -11,6 +11,7 @@ $routes = [
     'about' => 'about',
     'portfolio' => 'portfolio',
     'portfolio/detail' => 'portfolio-detail',
+    'portfolio/pdf' => 'portfolio-pdf',
     'blog' => 'blog',
     'blog/detail' => 'blog-detail',
     'services' => 'services',
@@ -51,6 +52,7 @@ $routes = [
     'admin/comments' => 'admin/comments',
     'admin/activity-log' => 'admin/activity-log',
     'admin/backup' => 'admin/backup',
+    'admin/users' => 'admin/users',
     
     // API routes
     'api/projects' => 'api/projects',

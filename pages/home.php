@@ -7,6 +7,21 @@ $pageTitle = '';
 $pageDescription = getSetting('site_description');
 include TEMPLATES_PATH . '/header.php';
 
+// Person Schema Markup
+echo schemaMarkup('Person', [
+    'name' => getSetting('owner_name', 'Aldi'),
+    'url' => APP_URL,
+    'jobTitle' => getSetting('owner_title', 'Full Stack Developer'),
+    'email' => getSetting('owner_email', ''),
+    'description' => getSetting('owner_bio', ''),
+    'sameAs' => array_values(array_filter([
+        getSetting('social_github'),
+        getSetting('social_linkedin'),
+        getSetting('social_twitter'),
+        getSetting('social_instagram'),
+    ]))
+]);
+
 // Get featured projects
 try {
     $featuredProjects = db()->fetchAll(
