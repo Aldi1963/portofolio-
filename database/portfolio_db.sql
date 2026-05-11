@@ -291,11 +291,11 @@ CREATE TABLE IF NOT EXISTS `faqs` (
 -- =============================================
 
 -- Default Admin User (password: admin123)
-INSERT INTO `users` (`username`, `email`, `password`, `full_name`, `role`) VALUES
+INSERT IGNORE INTO `users` (`username`, `email`, `password`, `full_name`, `role`) VALUES
 ('admin', 'admin@portfolio.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Aldi Developer', 'admin');
 
 -- Default Categories
-INSERT INTO `categories` (`name`, `slug`, `type`, `description`, `color`, `sort_order`) VALUES
+INSERT IGNORE INTO `categories` (`name`, `slug`, `type`, `description`, `color`, `sort_order`) VALUES
 ('Web Development', 'web-development', 'project', 'Website and web application projects', '#0066ff', 1),
 ('Mobile App', 'mobile-app', 'project', 'Mobile application projects', '#00cc88', 2),
 ('UI/UX Design', 'ui-ux-design', 'project', 'User interface and experience design', '#ff6600', 3),
@@ -305,7 +305,7 @@ INSERT INTO `categories` (`name`, `slug`, `type`, `description`, `color`, `sort_
 ('Tips & Tricks', 'tips-tricks', 'blog', 'Quick tips for developers', '#ff6600', 3);
 
 -- Default Settings
-INSERT INTO `settings` (`setting_key`, `setting_value`, `setting_group`, `type`) VALUES
+INSERT IGNORE INTO `settings` (`setting_key`, `setting_value`, `setting_group`, `type`) VALUES
 ('site_name', 'Aldi Portfolio', 'general', 'text'),
 ('site_tagline', 'Full Stack Developer & Designer', 'general', 'text'),
 ('site_description', 'Professional portfolio website showcasing my projects, skills, and services as a full stack developer.', 'general', 'textarea'),
@@ -336,11 +336,10 @@ INSERT INTO `settings` (`setting_key`, `setting_value`, `setting_group`, `type`)
 ('stats_awards', '12', 'home', 'number'),
 ('footer_text', '© 2024 Aldi Portfolio. All rights reserved.', 'general', 'text'),
 ('google_maps_embed', '', 'contact', 'textarea'),
-('whatsapp_message', 'Hello! I want to discuss a project with you.', 'contact', 'text'),
-('maintenance_mode', '0', 'general', 'boolean');
+('whatsapp_default_message', 'Hello! I want to discuss a project with you.', 'contact', 'text'),
 
 -- Default Skills
-INSERT INTO `skills` (`name`, `percentage`, `category`, `icon`, `color`, `sort_order`) VALUES
+INSERT IGNORE INTO `skills` (`name`, `percentage`, `category`, `icon`, `color`, `sort_order`) VALUES
 ('PHP', 90, 'backend', 'fab fa-php', '#777BB4', 1),
 ('JavaScript', 85, 'frontend', 'fab fa-js', '#F7DF1E', 2),
 ('MySQL', 88, 'backend', 'fas fa-database', '#4479A1', 3),
@@ -355,7 +354,7 @@ INSERT INTO `skills` (`name`, `percentage`, `category`, `icon`, `color`, `sort_o
 ('Tailwind CSS', 85, 'frontend', 'fas fa-wind', '#06B6D4', 12);
 
 -- Default Experience
-INSERT INTO `experience` (`title`, `company`, `location`, `description`, `type`, `start_date`, `end_date`, `is_current`, `sort_order`) VALUES
+INSERT IGNORE INTO `experience` (`title`, `company`, `location`, `description`, `type`, `start_date`, `end_date`, `is_current`, `sort_order`) VALUES
 ('Senior Full Stack Developer', 'Tech Startup Inc.', 'Jakarta, Indonesia', 'Leading development team, building scalable web applications using modern technologies. Managing CI/CD pipelines and cloud infrastructure.', 'work', '2022-01-01', NULL, 1, 1),
 ('Full Stack Developer', 'Digital Agency Co.', 'Bandung, Indonesia', 'Developed 20+ client websites and web applications. Specialized in PHP, Laravel, and JavaScript frameworks.', 'work', '2020-03-01', '2021-12-31', 0, 2),
 ('Junior Web Developer', 'Freelance', 'Remote', 'Started freelancing career building WordPress sites and custom PHP applications for small businesses.', 'work', '2019-01-01', '2020-02-28', 0, 3),
@@ -363,21 +362,21 @@ INSERT INTO `experience` (`title`, `company`, `location`, `description`, `type`,
 ('AWS Certified Developer', 'Amazon Web Services', 'Online', 'Associate level certification for cloud development.', 'certification', '2023-06-01', '2026-06-01', 0, 5);
 
 -- Default Services
-INSERT INTO `services` (`title`, `slug`, `description`, `icon`, `price`, `price_unit`, `features`, `is_popular`, `sort_order`) VALUES
+INSERT IGNORE INTO `services` (`title`, `slug`, `description`, `icon`, `price`, `price_unit`, `features`, `is_popular`, `sort_order`) VALUES
 ('Web Development', 'web-development', 'Custom website development with modern technologies, responsive design, and optimized performance.', 'fas fa-code', 5000000, 'project', 'Responsive Design,SEO Optimized,Fast Loading,CMS Integration,1 Month Support', 0, 1),
 ('Full Stack Application', 'full-stack-application', 'Complete web application development from frontend to backend with database design and API development.', 'fas fa-layer-group', 15000000, 'project', 'Custom Architecture,API Development,Database Design,Admin Panel,3 Months Support,Source Code', 1, 2),
 ('UI/UX Design', 'ui-ux-design', 'Modern and intuitive user interface design with user experience research and prototyping.', 'fas fa-palette', 3000000, 'project', 'Wireframing,Prototyping,User Research,Design System,Figma Source File', 0, 3),
 ('Maintenance & Support', 'maintenance-support', 'Ongoing website maintenance, updates, bug fixes, and performance optimization.', 'fas fa-tools', 2000000, 'month', 'Bug Fixes,Security Updates,Performance Monitoring,Weekly Backups,Priority Support', 0, 4);
 
 -- Default Testimonials
-INSERT INTO `testimonials` (`client_name`, `client_position`, `client_company`, `content`, `rating`, `sort_order`) VALUES
+INSERT IGNORE INTO `testimonials` (`client_name`, `client_position`, `client_company`, `content`, `rating`, `sort_order`) VALUES
 ('Budi Santoso', 'CEO', 'TechVenture ID', 'Exceptional developer! Delivered our e-commerce platform ahead of schedule with outstanding quality. The code is clean, well-documented, and the performance is incredible.', 5, 1),
 ('Sarah Williams', 'Product Manager', 'Digital Solutions Co.', 'Working with Aldi was a fantastic experience. He understood our requirements perfectly and delivered a beautiful, functional application that exceeded our expectations.', 5, 2),
 ('Ahmad Rizky', 'Founder', 'StartupHub', 'Professional, responsive, and incredibly skilled. Aldi transformed our idea into a fully functional SaaS platform. Highly recommended for any web development project.', 5, 3),
 ('Lisa Chen', 'Marketing Director', 'GlobalBrand Asia', 'The portfolio website Aldi created for us perfectly captures our brand identity. Fast, beautiful, and SEO-optimized. Our organic traffic increased by 200%!', 4, 4);
 
 -- Default Projects
-INSERT INTO `projects` (`category_id`, `title`, `slug`, `short_description`, `description`, `technologies`, `client_name`, `project_date`, `is_featured`, `sort_order`, `demo_url`, `github_url`) VALUES
+INSERT IGNORE INTO `projects` (`category_id`, `title`, `slug`, `short_description`, `description`, `technologies`, `client_name`, `project_date`, `is_featured`, `sort_order`, `demo_url`, `github_url`) VALUES
 (1, 'E-Commerce Platform', 'e-commerce-platform', 'A full-featured e-commerce platform with payment integration and inventory management.', 'Built a complete e-commerce solution featuring product management, shopping cart, secure checkout with multiple payment gateways, order tracking, and admin dashboard. Implemented real-time inventory management and automated email notifications.', 'PHP,Laravel,MySQL,Vue.js,Stripe,Redis', 'TechVenture ID', '2024-01-15', 1, 1, 'https://demo.example.com', 'https://github.com/Aldi1963'),
 (1, 'Project Management App', 'project-management-app', 'A collaborative project management tool with real-time updates and team communication.', 'Developed a project management application with features including task boards, time tracking, file sharing, team chat, and automated reporting. Supports real-time collaboration using WebSockets.', 'React,Node.js,MongoDB,Socket.io,AWS', 'Digital Solutions Co.', '2023-11-20', 1, 2, 'https://demo.example.com', 'https://github.com/Aldi1963'),
 (3, 'Finance Dashboard UI', 'finance-dashboard-ui', 'A modern financial dashboard with data visualization and analytics.', 'Designed and developed an intuitive financial dashboard with interactive charts, real-time data visualization, portfolio tracking, and customizable widgets. Dark mode supported with smooth animations.', 'Figma,React,D3.js,Tailwind CSS', 'GlobalBrand Asia', '2023-08-10', 1, 3, 'https://demo.example.com', ''),
@@ -386,13 +385,13 @@ INSERT INTO `projects` (`category_id`, `title`, `slug`, `short_description`, `de
 (1, 'Real Estate Platform', 'real-estate-platform', 'A property listing platform with advanced search and virtual tours.', 'Built a real estate platform with property listings, advanced filtering, map integration, virtual 3D tours, mortgage calculator, and agent management. Responsive design optimized for all devices.', 'PHP,MySQL,JavaScript,Google Maps API,Three.js', 'PropertyHub ID', '2024-03-01', 1, 6, 'https://demo.example.com', 'https://github.com/Aldi1963');
 
 -- Default Blog Posts
-INSERT INTO `blogs` (`category_id`, `user_id`, `title`, `slug`, `excerpt`, `content`, `tags`, `status`, `is_featured`, `published_at`) VALUES
+INSERT IGNORE INTO `blogs` (`category_id`, `user_id`, `title`, `slug`, `excerpt`, `content`, `tags`, `status`, `is_featured`, `published_at`) VALUES
 (5, 1, 'Building Modern Web Applications with PHP 8', 'building-modern-web-applications-php-8', 'Discover the latest features in PHP 8 and how to leverage them for building scalable, modern web applications.', '<h2>Introduction</h2><p>PHP 8 brings significant improvements to the language, making it more powerful and expressive than ever. In this article, we will explore the key features and best practices for building modern web applications.</p><h2>Key Features</h2><p>PHP 8 introduces named arguments, union types, attributes, match expressions, and the JIT compiler. These features allow developers to write cleaner, more maintainable code.</p><h2>Best Practices</h2><p>When building modern PHP applications, consider using:</p><ul><li>Strict typing for better code quality</li><li>PSR standards for consistency</li><li>Composer for dependency management</li><li>PDO for database operations</li><li>Environment variables for configuration</li></ul><h2>Conclusion</h2><p>PHP 8 is a modern, powerful language suitable for building enterprise-grade web applications. Embrace the new features and follow best practices for optimal results.</p>', 'PHP,Web Development,Backend,Programming', 'published', 1, NOW()),
 (6, 1, 'Getting Started with Tailwind CSS', 'getting-started-tailwind-css', 'A comprehensive guide to using Tailwind CSS for rapid UI development with utility-first approach.', '<h2>What is Tailwind CSS?</h2><p>Tailwind CSS is a utility-first CSS framework that provides low-level utility classes to build custom designs without writing custom CSS. It is highly customizable and efficient.</p><h2>Installation</h2><p>You can install Tailwind via npm or use the CDN for quick prototyping. The framework works great with any build tool and frontend framework.</p><h2>Core Concepts</h2><p>The utility-first approach means you apply pre-existing classes directly in your HTML. This leads to faster development, consistent design, and smaller CSS bundles in production.</p><h2>Responsive Design</h2><p>Tailwind makes responsive design intuitive with mobile-first breakpoint prefixes like sm:, md:, lg:, and xl:.</p>', 'CSS,Frontend,Design,Tailwind', 'published', 0, NOW()),
 (7, 1, '10 VS Code Extensions Every Developer Needs', '10-vscode-extensions-every-developer-needs', 'Boost your productivity with these essential VS Code extensions for web development.', '<h2>Essential Extensions</h2><p>Visual Studio Code is the most popular code editor, and its extension ecosystem makes it incredibly powerful. Here are 10 must-have extensions for every web developer.</p><h2>1. Prettier</h2><p>Automatic code formatting that keeps your codebase consistent.</p><h2>2. ESLint</h2><p>JavaScript linting to catch errors and enforce coding standards.</p><h2>3. GitLens</h2><p>Supercharge your Git capabilities within VS Code.</p><h2>4. Auto Rename Tag</h2><p>Automatically rename paired HTML/XML tags.</p><h2>5. Bracket Pair Colorizer</h2><p>Color-code matching brackets for better readability.</p>', 'Tools,VS Code,Productivity,Development', 'published', 0, NOW());
 
 -- Default FAQs
-INSERT INTO `faqs` (`question`, `answer`, `sort_order`) VALUES
+INSERT IGNORE INTO `faqs` (`question`, `answer`, `sort_order`) VALUES
 ('What technologies do you work with?', 'I specialize in PHP, JavaScript, MySQL, Laravel, React, Vue.js, Node.js, and modern CSS frameworks like Tailwind CSS. I also have experience with cloud services (AWS, GCP) and DevOps tools.', 1),
 ('How long does a typical project take?', 'Project timelines vary depending on complexity. A simple website takes 1-2 weeks, while a full web application can take 1-3 months. I provide detailed timelines during the proposal phase.', 2),
 ('Do you offer maintenance after project completion?', 'Yes! I offer ongoing maintenance packages that include bug fixes, security updates, performance monitoring, and feature additions. Support starts from the day of project delivery.', 3),
@@ -405,7 +404,7 @@ INSERT INTO `faqs` (`question`, `answer`, `sort_order`) VALUES
 -- These can be managed from Admin Dashboard
 -- =============================================
 
-INSERT INTO `settings` (`setting_key`, `setting_value`, `setting_group`, `type`) VALUES
+INSERT IGNORE INTO `settings` (`setting_key`, `setting_value`, `setting_group`, `type`) VALUES
 -- Mail Settings
 ('mail_host', 'smtp.gmail.com', 'mail', 'text'),
 ('mail_port', '587', 'mail', 'number'),
