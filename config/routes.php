@@ -16,6 +16,7 @@ $routes = [
     'services' => 'services',
     'contact' => 'contact',
     'sitemap.xml' => 'sitemap',
+    'feed.xml' => 'feed',
     
     // Auth routes
     'admin/login' => 'admin/login',
@@ -47,6 +48,8 @@ $routes = [
     'admin/settings' => 'admin/settings',
     'admin/change-password' => 'admin/change-password',
     'admin/categories' => 'admin/categories',
+    'admin/comments' => 'admin/comments',
+    'admin/activity-log' => 'admin/activity-log',
     'admin/backup' => 'admin/backup',
     
     // API routes

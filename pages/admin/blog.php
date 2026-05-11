@@ -13,6 +13,7 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
             if ($post && $post['thumbnail']) deleteFile($post['thumbnail']);
             db()->delete('comments', 'blog_id = ?', [$_GET['delete']]);
             db()->delete('blogs', 'id = ?', [$_GET['delete']]);
+            logActivity('delete_blog', 'Deleted blog post ID: ' . $_GET['delete']);
             setFlash('success', 'Post deleted successfully.');
         } catch (Exception $e) {
             setFlash('error', 'Failed to delete post.');

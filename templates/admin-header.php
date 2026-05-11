@@ -119,8 +119,27 @@ $user = currentUser();
                         <?php endif; } catch(Exception $e) {} ?>
                     </a>
                 </li>
+                <li class="menu-item <?= $adminPage === 'comments' ? 'active' : '' ?>">
+                    <a href="<?= baseUrl('admin/comments') ?>">
+                        <i class="fas fa-comments"></i>
+                        <span>Comments</span>
+                        <?php 
+                        try {
+                            $pendingComments = db()->count('comments', 'is_approved = 0');
+                            if ($pendingComments > 0):
+                        ?>
+                        <span class="badge"><?= $pendingComments ?></span>
+                        <?php endif; } catch(Exception $e) {} ?>
+                    </a>
+                </li>
                 
                 <li class="menu-label">System</li>
+                <li class="menu-item <?= $adminPage === 'activity-log' ? 'active' : '' ?>">
+                    <a href="<?= baseUrl('admin/activity-log') ?>">
+                        <i class="fas fa-history"></i>
+                        <span>Activity Log</span>
+                    </a>
+                </li>
                 <li class="menu-item <?= $adminPage === 'settings' ? 'active' : '' ?>">
                     <a href="<?= baseUrl('admin/settings') ?>">
                         <i class="fas fa-cog"></i>

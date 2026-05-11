@@ -34,8 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     $publishedAt = $post['published_at'];
-    if ($status === 'published' && empty($post['published_at'])) {
-        $publishedAt = date('Y-m-d H:i:s');
+    if ($status === 'published') {
+        $scheduledDate = post('published_at');
+        if (!empty($scheduledDate)) {
+            $publishedAt = $scheduledDate;
+        } elseif (empty($post['published_at'])) {
+            $publishedAt = date('Y-m-d H:i:s');
+        }
     }
     
     try {
@@ -52,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'is_featured' => isset($_POST['is_featured']) ? 1 : 0,
             'published_at' => $publishedAt,
         ], 'id = ?', [$postId]);
+        logActivity('edit_blog', 'Updated blog post: ' . $title);
         setFlash('success', 'Post updated!');
         redirect(baseUrl('admin/blog'));
     } catch (Exception $e) {
@@ -105,7 +111,7 @@ include TEMPLATES_PATH . '/admin-header.php';
                 </div>
                 <div class="form-group col-3">
                     <label>Status</label>
-                    <select name="status">
+                    <select name="status" id="post-status" onchange="toggleScheduleField()">
                         <option value="draft" <?= $post['status'] === 'draft' ? 'selected' : '' ?>>Draft</option>
                         <option value="published" <?= $post['status'] === 'published' ? 'selected' : '' ?>>Published</option>
                         <option value="archived" <?= $post['status'] === 'archived' ? 'selected' : '' ?>>Archived</option>
@@ -118,6 +124,13 @@ include TEMPLATES_PATH . '/admin-header.php';
                     <img src="<?= uploadUrl($post['thumbnail']) ?>" style="max-height:60px;margin-top:5px;border-radius:4px;">
                     <?php endif; ?>
                 </div>
+            </div>
+            
+            <div class="form-group" id="schedule-field" style="<?= $post['status'] === 'published' ? '' : 'display:none;' ?>">
+                <label><i class="fas fa-calendar-alt"></i> Scheduled Publish Date/Time</label>
+                <input type="datetime-local" name="published_at" 
+                       value="<?= !empty($post['published_at']) ? date('Y-m-d\TH:i', strtotime($post['published_at'])) : '' ?>">
+                <small class="form-help" style="display:flex;align-items:center;gap:4px;margin-top:4px;font-size:0.78rem;color:var(--text-muted,#6b6b80);"><i class="fas fa-info-circle"></i> Leave empty to publish immediately, or set a future date for scheduled publishing.</small>
             </div>
             
             <div class="form-row">
@@ -145,5 +158,13 @@ include TEMPLATES_PATH . '/admin-header.php';
         </form>
     </div>
 </div>
+
+<script>
+function toggleScheduleField() {
+    const status = document.getElementById('post-status').value;
+    const field = document.getElementById('schedule-field');
+    field.style.display = status === 'published' ? 'block' : 'none';
+}
+</script>
 
 <?php include TEMPLATES_PATH . '/admin-footer.php'; ?>

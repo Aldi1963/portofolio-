@@ -96,6 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
         setFlash('success', 'Project updated successfully!');
+        logActivity('edit_project', 'Updated project: ' . $title);
         redirect(baseUrl('admin/projects'));
     } catch (Exception $e) {
         setFlash('error', 'Failed to update project.');

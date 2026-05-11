@@ -90,6 +90,9 @@ function loginUser($username, $password) {
     // Reset rate limit
     resetRateLimit('login');
     
+    // Log activity
+    logActivity('login', 'User logged in: ' . $user['username']);
+    
     return ['success' => true, 'message' => 'Login successful!'];
 }
 
@@ -214,6 +217,9 @@ function loginWithGoogle($email, $name, $avatar = '') {
     $_SESSION['logged_in'] = true;
     $_SESSION['login_time'] = time();
     $_SESSION['login_method'] = 'google';
+    
+    // Log activity
+    logActivity('login', 'User logged in via Google: ' . $user['username']);
     
     return ['success' => true, 'message' => 'Login successful!'];
 }

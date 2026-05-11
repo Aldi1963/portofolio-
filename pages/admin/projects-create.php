@@ -94,6 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
         setFlash('success', 'Project created successfully!');
+        logActivity('create_project', 'Created project: ' . $title);
         redirect(baseUrl('admin/projects'));
     } catch (Exception $e) {
         setFlash('error', 'Failed to create project: ' . ($e->getMessage()));

@@ -43,6 +43,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     try {
+        $publishedAt = null;
+        if ($status === 'published') {
+            $scheduledDate = post('published_at');
+            $publishedAt = !empty($scheduledDate) ? $scheduledDate : date('Y-m-d H:i:s');
+        }
+        
         db()->insert('blogs', [
             'category_id' => $categoryId ?: null,
             'user_id' => $_SESSION['user_id'],
@@ -56,8 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'meta_description' => $metaDesc,
             'status' => $status,
             'is_featured' => $isFeatured,
-            'published_at' => $status === 'published' ? date('Y-m-d H:i:s') : null,
+            'published_at' => $publishedAt,
         ]);
+        logActivity('create_blog', 'Created blog post: ' . $title);
         setFlash('success', 'Blog post created successfully!');
         redirect(baseUrl('admin/blog'));
     } catch (Exception $e) {
@@ -111,7 +118,7 @@ include TEMPLATES_PATH . '/admin-header.php';
                 </div>
                 <div class="form-group col-3">
                     <label>Status</label>
-                    <select name="status">
+                    <select name="status" id="post-status" onchange="toggleScheduleField()">
                         <option value="draft">Draft</option>
                         <option value="published">Published</option>
                     </select>
@@ -120,6 +127,12 @@ include TEMPLATES_PATH . '/admin-header.php';
                     <label>Thumbnail</label>
                     <input type="file" name="thumbnail" accept="image/*" class="file-input">
                 </div>
+            </div>
+            
+            <div class="form-group" id="schedule-field" style="display:none;">
+                <label><i class="fas fa-calendar-alt"></i> Schedule Publish Date/Time</label>
+                <input type="datetime-local" name="published_at" placeholder="Leave empty to publish immediately">
+                <small class="form-help"><i class="fas fa-info-circle"></i> Leave empty to publish immediately, or set a future date for scheduled publishing.</small>
             </div>
             
             <div class="form-row">
@@ -147,5 +160,13 @@ include TEMPLATES_PATH . '/admin-header.php';
         </form>
     </div>
 </div>
+
+<script>
+function toggleScheduleField() {
+    const status = document.getElementById('post-status').value;
+    const field = document.getElementById('schedule-field');
+    field.style.display = status === 'published' ? 'block' : 'none';
+}
+</script>
 
 <?php include TEMPLATES_PATH . '/admin-footer.php'; ?>

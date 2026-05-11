@@ -17,6 +17,7 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
             if ($project && $project['thumbnail']) deleteFile($project['thumbnail']);
             db()->delete('project_images', 'project_id = ?', [$_GET['delete']]);
             db()->delete('projects', 'id = ?', [$_GET['delete']]);
+            logActivity('delete_project', 'Deleted project ID: ' . $_GET['delete']);
             setFlash('success', 'Project deleted successfully.');
         } catch (Exception $e) {
             setFlash('error', 'Failed to delete project.');

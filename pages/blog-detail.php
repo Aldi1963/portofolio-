@@ -106,6 +106,8 @@ include TEMPLATES_PATH . '/header.php';
                         <span class="meta-separator">|</span>
                         <span><i class="fas fa-eye"></i> <?= formatNumber($post['views']) ?> views</span>
                         <span class="meta-separator">|</span>
+                        <span><i class="fas fa-clock"></i> <?= readingTime($post['content']) ?> min read</span>
+                        <span class="meta-separator">|</span>
                         <span><i class="fas fa-comment"></i> <?= $commentCount ?> comments</span>
                     </div>
                 </header>

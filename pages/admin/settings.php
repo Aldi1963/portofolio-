@@ -51,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
         setFlash('success', 'Settings saved successfully! Changes will take effect immediately.');
+        logActivity('save_settings', 'Updated site settings');
     } catch (Exception $e) {
         setFlash('error', 'Failed to save settings: ' . (APP_DEBUG ? $e->getMessage() : 'Please try again.'));
     }

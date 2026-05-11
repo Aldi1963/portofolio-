@@ -453,6 +453,39 @@ function isAjax() {
 }
 
 /**
+ * Calculate reading time for content
+ * @param string $content HTML or plain text content
+ * @return int Estimated reading time in minutes (minimum 1)
+ */
+function readingTime($content) {
+    $text = strip_tags($content);
+    $wordCount = str_word_count($text);
+    $minutes = max(1, (int)ceil($wordCount / 200));
+    return $minutes;
+}
+
+/**
+ * Log user activity
+ * @param string $action Short action identifier (e.g. 'login', 'create_project')
+ * @param string $description Detailed description of the action
+ */
+function logActivity($action, $description) {
+    try {
+        $userId = $_SESSION['user_id'] ?? null;
+        $ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+        
+        db()->insert('activity_log', [
+            'user_id' => $userId,
+            'action' => $action,
+            'description' => $description,
+            'ip_address' => $ip,
+        ]);
+    } catch (Exception $e) {
+        // Silently fail - don't break the app for logging
+    }
+}
+
+/**
  * Generate meta tags
  */
 function metaTags($title = '', $description = '', $image = '', $type = 'website') {

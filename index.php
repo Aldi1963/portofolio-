@@ -14,6 +14,14 @@ require_once __DIR__ . '/includes/session.php';
 // Load dynamic config from database (overrides .env)
 loadDynamicConfig();
 
+// Check maintenance mode
+if (config('maintenance_mode') === '1' && !isLoggedIn()) {
+    http_response_code(503);
+    header('Retry-After: 1800');
+    require_once __DIR__ . '/pages/maintenance.php';
+    exit;
+}
+
 // Track visitor
 trackVisitor();
 

@@ -15,7 +15,7 @@ $currentPage = (int)(get('page') ?: 1);
 $perPage = 6;
 
 // Build query
-$where = "b.status = 'published'";
+$where = "b.status = 'published' AND (b.published_at IS NULL OR b.published_at <= NOW())";
 $params = [];
 
 if (!empty($search)) {
@@ -165,6 +165,7 @@ try {
                         <div class="blog-card-content">
                             <div class="blog-card-meta">
                                 <span><i class="fas fa-calendar"></i> <?= formatDate($post['published_at']) ?></span>
+                                <span><i class="fas fa-clock"></i> <?= readingTime($post['content']) ?> min read</span>
                                 <span><i class="fas fa-eye"></i> <?= formatNumber($post['views']) ?></span>
                             </div>
                             <h3 class="blog-card-title">
