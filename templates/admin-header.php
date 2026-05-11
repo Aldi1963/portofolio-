@@ -104,6 +104,12 @@ $user = currentUser();
                         <span>Testimonials</span>
                     </a>
                 </li>
+                <li class="menu-item <?= $adminPage === 'experience' ? 'active' : '' ?>">
+                    <a href="<?= baseUrl('admin/experience') ?>">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Experience</span>
+                    </a>
+                </li>
                 
                 <li class="menu-label">Communication</li>
                 <li class="menu-item <?= $adminPage === 'messages' ? 'active' : '' ?>">

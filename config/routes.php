@@ -52,6 +52,7 @@ $routes = [
     'admin/comments' => 'admin/comments',
     'admin/activity-log' => 'admin/activity-log',
     'admin/backup' => 'admin/backup',
+    'admin/experience' => 'admin/experience',
     'admin/users' => 'admin/users',
     
     // API routes
