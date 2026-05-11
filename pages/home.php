@@ -57,10 +57,6 @@ $typingTexts = getSetting('hero_typing_texts', 'Web Developer,UI/UX Designer,Fre
     
     <div class="container">
         <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
-            <div class="hero-badge" data-aos="fade-down" data-aos-delay="200">
-                <span class="badge-dot"></span>
-                Available for Freelance
-            </div>
             
             <h1 class="hero-title">
                 <?= getSetting('hero_title', 'Hi, I am Aldi') ?>
