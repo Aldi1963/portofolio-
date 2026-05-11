@@ -62,19 +62,24 @@ try {
     // Send email notification (optional)
     if (!empty(config('mail_username')) && config('mail_username') !== 'your-email@gmail.com') {
         try {
+            require_once ROOT_PATH . '/includes/email-template.php';
+            
             $to = getSetting('owner_email', config('mail_from'));
-            $emailSubject = "New Contact: " . $subject;
-            $emailBody = "New message from your portfolio website:\n\n";
-            $emailBody .= "Name: $name\n";
-            $emailBody .= "Email: $email\n";
-            $emailBody .= "Phone: $phone\n";
-            $emailBody .= "Subject: $subject\n";
-            $emailBody .= "Message:\n$message\n";
             
-            $headers = "From: " . config('mail_from') . "\r\n";
-            $headers .= "Reply-To: $email\r\n";
+            // Send HTML notification to admin
+            $adminHtml = emailTemplateContact([
+                'name' => $name,
+                'email' => $email,
+                'phone' => $phone,
+                'subject' => $subject,
+                'message' => $message
+            ]);
+            sendHtmlEmail($to, "New Contact: " . $subject, $adminHtml, $email);
             
-            @mail($to, $emailSubject, $emailBody, $headers);
+            // Send auto-reply to sender
+            $replyHtml = emailTemplateAutoReply(['name' => $name]);
+            sendHtmlEmail($email, "Thank you for contacting " . getSetting('owner_name', 'us'), $replyHtml);
+            
         } catch (Exception $e) {
             // Email failed but message saved - don't fail the request
         }

@@ -21,6 +21,35 @@ $user = currentUser();
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
+    <!-- TinyMCE Rich Text Editor -->
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (document.querySelector('.richtext')) {
+            tinymce.init({
+                selector: '.richtext',
+                height: 400,
+                skin: 'oxide-dark',
+                content_css: 'dark',
+                plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table help wordcount',
+                toolbar: 'undo redo | blocks | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media | code fullscreen | removeformat help',
+                menubar: 'file edit view insert format tools table help',
+                branding: false,
+                promotion: false,
+                image_advtab: true,
+                automatic_uploads: false,
+                file_picker_types: 'image',
+                content_style: 'body { font-family: Inter, sans-serif; font-size: 14px; color: #e0e0e0; background: #1a1a2e; } a { color: #0066ff; }',
+                setup: function(editor) {
+                    editor.on('change', function() {
+                        editor.save();
+                    });
+                }
+            });
+        }
+    });
+    </script>
+    
     <!-- Admin CSS -->
     <link rel="stylesheet" href="<?= asset('css/admin.css') ?>">
 </head>
@@ -96,6 +125,12 @@ $user = currentUser();
                     <a href="<?= baseUrl('admin/settings') ?>">
                         <i class="fas fa-cog"></i>
                         <span>Settings</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="<?= baseUrl('admin/change-password') ?>">
+                        <i class="fas fa-key"></i>
+                        <span>Change Password</span>
                     </a>
                 </li>
                 <li class="menu-item <?= $adminPage === 'backup' ? 'active' : '' ?>">

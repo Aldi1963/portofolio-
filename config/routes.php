@@ -45,6 +45,7 @@ $routes = [
     'admin/messages/view' => 'admin/messages-view',
     'admin/messages/delete' => 'admin/messages-delete',
     'admin/settings' => 'admin/settings',
+    'admin/change-password' => 'admin/change-password',
     'admin/categories' => 'admin/categories',
     'admin/backup' => 'admin/backup',
     

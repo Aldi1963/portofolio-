@@ -218,6 +218,12 @@ function uploadFile($file, $directory = 'images', $allowedTypes = ['jpg', 'jpeg'
     $filepath = $uploadDir . '/' . $filename;
     
     if (move_uploaded_file($file['tmp_name'], $filepath)) {
+        // Compress image if it's an image type (not PDF/SVG)
+        $imageTypes = ['jpg', 'jpeg', 'png', 'webp'];
+        if (in_array($extension, $imageTypes)) {
+            compressImage($filepath, $filepath, 80);
+        }
+        
         return [
             'success' => true,
             'filename' => $filename,
@@ -227,6 +233,77 @@ function uploadFile($file, $directory = 'images', $allowedTypes = ['jpg', 'jpeg'
     }
     
     return ['success' => false, 'message' => 'Failed to move uploaded file'];
+}
+
+/**
+ * Compress and resize image
+ * Reduces file size while maintaining quality
+ */
+function compressImage($source, $destination, $quality = 80, $maxWidth = 1920, $maxHeight = 1920) {
+    $info = getimagesize($source);
+    if ($info === false) return false;
+    
+    $mime = $info['mime'];
+    $width = $info[0];
+    $height = $info[1];
+    
+    // Create image resource based on type
+    switch ($mime) {
+        case 'image/jpeg':
+            $image = imagecreatefromjpeg($source);
+            break;
+        case 'image/png':
+            $image = imagecreatefrompng($source);
+            break;
+        case 'image/webp':
+            $image = imagecreatefromwebp($source);
+            break;
+        default:
+            return false;
+    }
+    
+    if (!$image) return false;
+    
+    // Resize if too large
+    if ($width > $maxWidth || $height > $maxHeight) {
+        $ratio = min($maxWidth / $width, $maxHeight / $height);
+        $newWidth = (int)($width * $ratio);
+        $newHeight = (int)($height * $ratio);
+        
+        $resized = imagecreatetruecolor($newWidth, $newHeight);
+        
+        // Preserve transparency for PNG/WebP
+        if ($mime === 'image/png' || $mime === 'image/webp') {
+            imagealphablending($resized, false);
+            imagesavealpha($resized, true);
+            $transparent = imagecolorallocatealpha($resized, 0, 0, 0, 127);
+            imagefilledrectangle($resized, 0, 0, $newWidth, $newHeight, $transparent);
+        }
+        
+        imagecopyresampled($resized, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+        imagedestroy($image);
+        $image = $resized;
+    }
+    
+    // Save compressed image
+    switch ($mime) {
+        case 'image/jpeg':
+            $result = imagejpeg($image, $destination, $quality);
+            break;
+        case 'image/png':
+            // PNG quality is 0-9 (inverted from jpeg)
+            $pngQuality = (int)(9 - ($quality / 100 * 9));
+            $result = imagepng($image, $destination, $pngQuality);
+            break;
+        case 'image/webp':
+            $result = imagewebp($image, $destination, $quality);
+            break;
+        default:
+            $result = false;
+    }
+    
+    imagedestroy($image);
+    return $result;
 }
 
 /**
