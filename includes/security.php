@@ -148,11 +148,11 @@ function resetRateLimit($action) {
  * Verify Google reCAPTCHA
  */
 function verifyRecaptcha($response) {
-    if (empty(RECAPTCHA_SECRET_KEY)) return true; // Skip if not configured
+    if (empty(config('recaptcha_secret_key'))) return true; // Skip if not configured
     
     $url = 'https://www.google.com/recaptcha/api/siteverify';
     $data = [
-        'secret' => RECAPTCHA_SECRET_KEY,
+        'secret' => config('recaptcha_secret_key'),
         'response' => $response,
         'remoteip' => $_SERVER['REMOTE_ADDR']
     ];

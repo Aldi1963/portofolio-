@@ -34,14 +34,14 @@ $bodyClass = $bodyClass ?? '';
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
     
-    <?php if (!empty(GA_TRACKING_ID)): ?>
+    <?php if (!empty(config('ga_tracking_id'))): ?>
     <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= GA_TRACKING_ID ?>"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= config('ga_tracking_id') ?>"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', '<?= GA_TRACKING_ID ?>');
+        gtag('config', '<?= config('ga_tracking_id') ?>');
     </script>
     <?php endif; ?>
 </head>

@@ -81,8 +81,8 @@
     </footer>
 
     <!-- WhatsApp Floating Button -->
-    <?php if (!empty(WHATSAPP_NUMBER)): ?>
-    <a href="https://wa.me/<?= WHATSAPP_NUMBER ?>?text=<?= urlencode(getSetting('whatsapp_message', 'Hello!')) ?>" 
+    <?php if (!empty(config('whatsapp_number'))): ?>
+    <a href="https://wa.me/<?= config('whatsapp_number') ?>?text=<?= urlencode(getSetting('whatsapp_message', 'Hello!')) ?>" 
        class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
@@ -100,8 +100,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="<?= asset('js/app.js') ?>"></script>
     
-    <?php if (!empty(RECAPTCHA_SITE_KEY)): ?>
-    <script src="https://www.google.com/recaptcha/api.js?render=<?= RECAPTCHA_SITE_KEY ?>"></script>
+    <?php if (!empty(config('recaptcha_site_key'))): ?>
+    <script src="https://www.google.com/recaptcha/api.js?render=<?= config('recaptcha_site_key') ?>"></script>
     <?php endif; ?>
 </body>
 </html>

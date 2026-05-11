@@ -193,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
     `setting_key` VARCHAR(100) NOT NULL UNIQUE,
     `setting_value` TEXT DEFAULT NULL,
     `setting_group` VARCHAR(50) DEFAULT 'general',
-    `type` ENUM('text', 'textarea', 'image', 'boolean', 'number', 'json') DEFAULT 'text',
+    `type` ENUM('text', 'textarea', 'image', 'boolean', 'number', 'json', 'password') DEFAULT 'text',
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -384,5 +384,37 @@ INSERT INTO `faqs` (`question`, `answer`, `sort_order`) VALUES
 ('What is your payment structure?', 'I typically work with a 50% upfront deposit and 50% upon completion. For larger projects, we can arrange milestone-based payments. I accept bank transfer and various digital payment methods.', 4),
 ('Can you work with existing codebases?', 'Absolutely! I frequently work with existing projects for bug fixes, feature additions, performance optimization, and code refactoring. I will first review the codebase and provide recommendations.', 5),
 ('Do you sign NDAs?', 'Yes, I am happy to sign Non-Disclosure Agreements. Client confidentiality and data security are top priorities in all my projects.', 6);
+
+-- =============================================
+-- DYNAMIC CONFIG SETTINGS (Mail, Integration, Security)
+-- These can be managed from Admin Dashboard
+-- =============================================
+
+INSERT INTO `settings` (`setting_key`, `setting_value`, `setting_group`, `type`) VALUES
+-- Mail Settings
+('mail_host', 'smtp.gmail.com', 'mail', 'text'),
+('mail_port', '587', 'mail', 'number'),
+('mail_username', '', 'mail', 'text'),
+('mail_password', '', 'mail', 'password'),
+('mail_from', '', 'mail', 'text'),
+('mail_from_name', 'MyPortfolio', 'mail', 'text'),
+('mail_encryption', 'tls', 'mail', 'text'),
+
+-- Integration Settings
+('recaptcha_site_key', '', 'integration', 'text'),
+('recaptcha_secret_key', '', 'integration', 'password'),
+('ga_tracking_id', '', 'integration', 'text'),
+('whatsapp_number', '6281234567890', 'integration', 'text'),
+('whatsapp_message', 'Hello! I want to discuss a project with you.', 'integration', 'text'),
+('tawk_to_id', '', 'integration', 'text'),
+('facebook_pixel_id', '', 'integration', 'text'),
+
+-- Security Settings
+('session_lifetime', '3600', 'security', 'number'),
+('csrf_token_lifetime', '3600', 'security', 'number'),
+('login_max_attempts', '5', 'security', 'number'),
+('login_lockout_time', '900', 'security', 'number'),
+('force_https', '0', 'security', 'boolean'),
+('maintenance_mode', '0', 'security', 'boolean');
 
 COMMIT;

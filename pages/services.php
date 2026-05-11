@@ -222,8 +222,8 @@ try {
                     <a href="<?= baseUrl('contact') ?>" class="btn btn-primary btn-lg">
                         <i class="fas fa-paper-plane"></i> Get Free Quote
                     </a>
-                    <?php if (!empty(WHATSAPP_NUMBER)): ?>
-                    <a href="https://wa.me/<?= WHATSAPP_NUMBER ?>?text=<?= urlencode('Hi! I would like to discuss a project.') ?>" 
+                    <?php if (!empty(config('whatsapp_number'))): ?>
+                    <a href="https://wa.me/<?= config('whatsapp_number') ?>?text=<?= urlencode('Hi! I would like to discuss a project.') ?>" 
                        target="_blank" class="btn btn-outline btn-lg">
                         <i class="fab fa-whatsapp"></i> WhatsApp Me
                     </a>

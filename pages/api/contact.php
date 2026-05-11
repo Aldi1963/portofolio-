@@ -39,7 +39,7 @@ if (!empty($errors)) {
 }
 
 // Verify reCAPTCHA if configured
-if (!empty(RECAPTCHA_SECRET_KEY)) {
+if (!empty(config('recaptcha_secret_key'))) {
     $recaptchaToken = $_POST['recaptcha_token'] ?? '';
     if (!verifyRecaptcha($recaptchaToken)) {
         jsonResponse(['success' => false, 'message' => 'reCAPTCHA verification failed.'], 422);
@@ -60,9 +60,9 @@ try {
     recordRateLimitAttempt('contact');
     
     // Send email notification (optional)
-    if (!empty(MAIL_USERNAME) && MAIL_USERNAME !== 'your-email@gmail.com') {
+    if (!empty(config('mail_username')) && config('mail_username') !== 'your-email@gmail.com') {
         try {
-            $to = getSetting('owner_email', MAIL_FROM);
+            $to = getSetting('owner_email', config('mail_from'));
             $emailSubject = "New Contact: " . $subject;
             $emailBody = "New message from your portfolio website:\n\n";
             $emailBody .= "Name: $name\n";
@@ -71,7 +71,7 @@ try {
             $emailBody .= "Subject: $subject\n";
             $emailBody .= "Message:\n$message\n";
             
-            $headers = "From: " . MAIL_FROM . "\r\n";
+            $headers = "From: " . config('mail_from') . "\r\n";
             $headers .= "Reply-To: $email\r\n";
             
             @mail($to, $emailSubject, $emailBody, $headers);

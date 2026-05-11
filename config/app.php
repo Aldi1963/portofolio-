@@ -49,7 +49,7 @@ define('DB_NAME', env('DB_NAME', 'portfolio_db'));
 define('DB_USER', env('DB_USER', 'root'));
 define('DB_PASS', env('DB_PASS', ''));
 
-// Mail Constants
+// Mail Constants (loaded from DB first, fallback to .env)
 define('MAIL_HOST', env('MAIL_HOST', 'smtp.gmail.com'));
 define('MAIL_PORT', (int)env('MAIL_PORT', '587'));
 define('MAIL_USERNAME', env('MAIL_USERNAME', ''));
@@ -72,6 +72,68 @@ define('GA_TRACKING_ID', env('GA_TRACKING_ID', ''));
 
 // WhatsApp
 define('WHATSAPP_NUMBER', env('WHATSAPP_NUMBER', ''));
+
+/**
+ * Override constants with database settings (dynamic config)
+ * Called after database is available
+ */
+function loadDynamicConfig() {
+    try {
+        $dbSettings = db()->fetchAll("SELECT setting_key, setting_value FROM settings WHERE setting_group IN ('mail', 'integration', 'security')");
+        foreach ($dbSettings as $row) {
+            $key = $row['setting_key'];
+            $val = $row['setting_value'];
+            if ($val === '' || $val === null) continue; // Skip empty, use .env fallback
+            
+            // Store in a global array for runtime access
+            $GLOBALS['_dynamic_config'][$key] = $val;
+        }
+    } catch (Exception $e) {
+        // Database not available yet (e.g., during install), use .env values
+    }
+}
+
+/**
+ * Get dynamic config value (checks DB settings first, then constant)
+ * Maps DB setting_key to PHP constant names
+ */
+function config($key, $default = '') {
+    // Check dynamic config from DB first
+    if (isset($GLOBALS['_dynamic_config'][$key])) {
+        return $GLOBALS['_dynamic_config'][$key];
+    }
+    
+    // Map DB keys to constant names
+    $keyMap = [
+        'mail_host' => 'MAIL_HOST',
+        'mail_port' => 'MAIL_PORT',
+        'mail_username' => 'MAIL_USERNAME',
+        'mail_password' => 'MAIL_PASSWORD',
+        'mail_from' => 'MAIL_FROM',
+        'mail_from_name' => 'MAIL_FROM_NAME',
+        'recaptcha_site_key' => 'RECAPTCHA_SITE_KEY',
+        'recaptcha_secret_key' => 'RECAPTCHA_SECRET_KEY',
+        'ga_tracking_id' => 'GA_TRACKING_ID',
+        'whatsapp_number' => 'WHATSAPP_NUMBER',
+        'session_lifetime' => 'SESSION_LIFETIME',
+        'csrf_token_lifetime' => 'CSRF_TOKEN_LIFETIME',
+        'login_max_attempts' => 'LOGIN_MAX_ATTEMPTS',
+        'login_lockout_time' => 'LOGIN_LOCKOUT_TIME',
+    ];
+    
+    // Try mapped constant
+    if (isset($keyMap[$key]) && defined($keyMap[$key])) {
+        return constant($keyMap[$key]);
+    }
+    
+    // Try key directly as constant (uppercase)
+    $constName = strtoupper($key);
+    if (defined($constName)) {
+        return constant($constName);
+    }
+    
+    return $default;
+}
 
 // Paths
 define('ROOT_PATH', dirname(__DIR__));

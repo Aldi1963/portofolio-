@@ -11,6 +11,9 @@ require_once __DIR__ . '/includes/helpers.php';
 require_once __DIR__ . '/includes/security.php';
 require_once __DIR__ . '/includes/session.php';
 
+// Load dynamic config from database (overrides .env)
+loadDynamicConfig();
+
 // Track visitor
 trackVisitor();
 

@@ -52,8 +52,8 @@ include TEMPLATES_PATH . '/header.php';
                 </div>
                 <h3>WhatsApp</h3>
                 <p>Chat with me directly</p>
-                <?php if (!empty(WHATSAPP_NUMBER)): ?>
-                <a href="https://wa.me/<?= WHATSAPP_NUMBER ?>?text=<?= urlencode(getSetting('whatsapp_message', 'Hello!')) ?>" target="_blank" class="info-link">Chat Now <i class="fas fa-arrow-right"></i></a>
+                <?php if (!empty(config('whatsapp_number'))): ?>
+                <a href="https://wa.me/<?= config('whatsapp_number') ?>?text=<?= urlencode(getSetting('whatsapp_message', 'Hello!')) ?>" target="_blank" class="info-link">Chat Now <i class="fas fa-arrow-right"></i></a>
                 <?php endif; ?>
             </div>
             <div class="contact-info-card glass" data-aos="fade-up" data-aos-delay="300">
@@ -126,7 +126,7 @@ include TEMPLATES_PATH . '/header.php';
                             <span class="form-error" id="error-message"></span>
                         </div>
 
-                        <?php if (!empty(RECAPTCHA_SITE_KEY)): ?>
+                        <?php if (!empty(config('recaptcha_site_key'))): ?>
                         <input type="hidden" name="recaptcha_token" id="recaptcha-token">
                         <?php endif; ?>
                         
