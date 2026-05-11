@@ -48,7 +48,7 @@ if (array_key_exists($url, $routes)) {
 }
 
 // Check admin authentication for admin routes
-if (strpos($page, 'admin/') === 0 && $page !== 'admin/login' && $page !== 'admin/logout') {
+if (strpos($page, 'admin/') === 0 && $page !== 'admin/login' && $page !== 'admin/logout' && $page !== 'admin/google-callback') {
     if (!isLoggedIn()) {
         redirect(APP_URL . '/admin/login');
         exit;

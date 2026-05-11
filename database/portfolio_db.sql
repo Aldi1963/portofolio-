@@ -409,6 +409,12 @@ INSERT INTO `settings` (`setting_key`, `setting_value`, `setting_group`, `type`)
 ('tawk_to_id', '', 'integration', 'text'),
 ('facebook_pixel_id', '', 'integration', 'text'),
 
+-- Google OAuth Login Settings
+('google_oauth_enabled', '0', 'integration', 'boolean'),
+('google_client_id', '', 'integration', 'text'),
+('google_client_secret', '', 'integration', 'password'),
+('google_allowed_emails', '', 'integration', 'textarea'),
+
 -- Security Settings
 ('session_lifetime', '3600', 'security', 'number'),
 ('csrf_token_lifetime', '3600', 'security', 'number'),

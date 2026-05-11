@@ -20,6 +20,7 @@ $routes = [
     // Auth routes
     'admin/login' => 'admin/login',
     'admin/logout' => 'admin/logout',
+    'admin/google-callback' => 'admin/google-callback',
     
     // Admin routes
     'admin' => 'admin/dashboard',
