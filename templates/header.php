@@ -46,7 +46,7 @@ $bodyClass = $bodyClass ?? '';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
+    <link rel="stylesheet" href="<?= asset('css/style.css') ?>?v=<?= APP_VERSION . '.' . time() ?>">
     
     <?php if (!empty(config('ga_tracking_id'))): ?>
     <!-- Google Analytics -->

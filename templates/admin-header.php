@@ -51,7 +51,7 @@ $user = currentUser();
     </script>
     
     <!-- Admin CSS -->
-    <link rel="stylesheet" href="<?= asset('css/admin.css') ?>">
+    <link rel="stylesheet" href="<?= asset('css/admin.css') ?>?v=<?= APP_VERSION . '.' . time() ?>">
 </head>
 <body class="admin-body">
     <!-- Admin Sidebar -->
