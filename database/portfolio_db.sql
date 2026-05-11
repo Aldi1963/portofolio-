@@ -336,7 +336,7 @@ INSERT IGNORE INTO `settings` (`setting_key`, `setting_value`, `setting_group`, 
 ('stats_awards', '12', 'home', 'number'),
 ('footer_text', '© 2024 Aldi Portfolio. All rights reserved.', 'general', 'text'),
 ('google_maps_embed', '', 'contact', 'textarea'),
-('whatsapp_default_message', 'Hello! I want to discuss a project with you.', 'contact', 'text'),
+('whatsapp_default_message', 'Hello! I want to discuss a project with you.', 'contact', 'text');
 
 -- Default Skills
 INSERT IGNORE INTO `skills` (`name`, `percentage`, `category`, `icon`, `color`, `sort_order`) VALUES
