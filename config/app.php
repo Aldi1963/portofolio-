@@ -161,8 +161,10 @@ date_default_timezone_set('Asia/Jakarta');
 // Start session with secure settings
 if (session_status() === PHP_SESSION_NONE) {
     ini_set('session.cookie_httponly', 1);
-    ini_set('session.cookie_secure', APP_ENV === 'production' ? 1 : 0);
+    // Only set secure cookie if actually using HTTPS
+    $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || ($_SERVER['SERVER_PORT'] ?? 80) == 443;
+    ini_set('session.cookie_secure', $isHttps ? 1 : 0);
     ini_set('session.use_strict_mode', 1);
-    ini_set('session.cookie_samesite', 'Strict');
+    ini_set('session.cookie_samesite', 'Lax');
     session_start();
 }

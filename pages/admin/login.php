@@ -13,8 +13,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         redirect(baseUrl('admin/login'));
     }
     
-    $username = post('username');
+    // Get raw username (don't escape - it needs to match DB exactly)
+    $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
+    
+    if (empty($username) || empty($password)) {
+        setFlash('error', 'Username and password are required.');
+        redirect(baseUrl('admin/login'));
+    }
     
     $result = loginUser($username, $password);
     
