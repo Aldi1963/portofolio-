@@ -405,7 +405,6 @@ INSERT IGNORE INTO `faqs` (`question`, `answer`, `sort_order`) VALUES
 -- =============================================
 
 INSERT IGNORE INTO `settings` (`setting_key`, `setting_value`, `setting_group`, `type`) VALUES
--- Mail Settings
 ('mail_host', 'smtp.gmail.com', 'mail', 'text'),
 ('mail_port', '587', 'mail', 'number'),
 ('mail_username', '', 'mail', 'text'),
@@ -414,7 +413,6 @@ INSERT IGNORE INTO `settings` (`setting_key`, `setting_value`, `setting_group`, 
 ('mail_from_name', 'MyPortfolio', 'mail', 'text'),
 ('mail_encryption', 'tls', 'mail', 'text'),
 
--- Integration Settings
 ('recaptcha_site_key', '', 'integration', 'text'),
 ('recaptcha_secret_key', '', 'integration', 'password'),
 ('ga_tracking_id', '', 'integration', 'text'),
@@ -423,13 +421,11 @@ INSERT IGNORE INTO `settings` (`setting_key`, `setting_value`, `setting_group`, 
 ('tawk_to_id', '', 'integration', 'text'),
 ('facebook_pixel_id', '', 'integration', 'text'),
 
--- Google OAuth Login Settings
 ('google_oauth_enabled', '0', 'integration', 'boolean'),
 ('google_client_id', '', 'integration', 'text'),
 ('google_client_secret', '', 'integration', 'password'),
 ('google_allowed_emails', '', 'integration', 'textarea'),
 
--- Security Settings
 ('session_lifetime', '3600', 'security', 'number'),
 ('csrf_token_lifetime', '3600', 'security', 'number'),
 ('login_max_attempts', '5', 'security', 'number'),

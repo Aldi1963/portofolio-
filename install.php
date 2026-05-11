@@ -81,17 +81,28 @@ if (file_exists($lockFile)) {
             $pdo->exec("USE `$name`");
             $steps[] = ['done', "Database '$name' ready"];
 
-            // Step 3: Import SQL
+            // Step 3: Import SQL (statement by statement)
             $sqlFile = __DIR__ . '/database/portfolio_db.sql';
             if (!file_exists($sqlFile)) throw new Exception("SQL file not found at: $sqlFile");
             
             $sql = file_get_contents($sqlFile);
+            // Remove database/use statements
             $sql = preg_replace('/CREATE DATABASE.*?;/s', '', $sql);
             $sql = preg_replace('/USE\s+`.*?`;/s', '', $sql);
+            // Remove SQL comments
+            $sql = preg_replace('/^--.*$/m', '', $sql);
             // Prevent duplicate entry errors
             $sql = str_replace('INSERT INTO', 'INSERT IGNORE INTO', $sql);
+            // Remove transaction commands (we handle our own)
+            $sql = str_replace(['START TRANSACTION;', 'COMMIT;', 'SET AUTOCOMMIT = 0;'], '', $sql);
             
-            $pdo->exec($sql);
+            // Split into individual statements and execute
+            $statements = array_filter(array_map('trim', explode(';', $sql)));
+            foreach ($statements as $stmt) {
+                if (!empty($stmt) && strlen($stmt) > 5) {
+                    $pdo->exec($stmt);
+                }
+            }
             $steps[] = ['done', 'Database tables & data imported'];
 
             // Step 4: Set admin credentials
