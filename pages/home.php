@@ -49,10 +49,7 @@ $typingTexts = getSetting('hero_typing_texts', 'Web Developer,UI/UX Designer,Fre
 
 <!-- Hero Section -->
 <section class="hero" id="hero">
-    <!-- Particle background -->
-    <div class="hero-particles" id="particles"></div>
-    
-    <!-- Gradient overlay -->
+    <!-- Solid dark overlay -->
     <div class="hero-overlay"></div>
     
     <div class="container">

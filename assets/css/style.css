@@ -133,14 +133,15 @@ ul { list-style: none; }
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    background: var(--accent);
     color: #fff;
-    box-shadow: 0 4px 15px var(--accent-glow);
+    box-shadow: none;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px var(--accent-glow);
+    box-shadow: 0 6px 16px rgba(255, 107, 0, 0.25);
+    background: var(--accent-dark);
     color: #fff;
 }
 
@@ -318,17 +319,17 @@ ul { list-style: none; }
 .hero-particles {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at center, rgba(0,102,255,0.1) 0%, transparent 70%);
+    background: none;
 }
 
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(10,10,15,0.8) 0%, rgba(0,102,255,0.05) 50%, rgba(10,10,15,0.9) 100%);
+    background: rgba(10, 10, 15, 0.92);
 }
 
 [data-theme="light"] .hero-overlay {
-    background: linear-gradient(135deg, rgba(248,250,252,0.9) 0%, rgba(0,102,255,0.03) 50%, rgba(248,250,252,0.95) 100%);
+    background: rgba(248, 250, 252, 0.95);
 }
 
 .hero .container { position: relative; z-index: 2; text-align: center; }
@@ -366,10 +367,8 @@ ul { list-style: none; }
     font-weight: 900;
     line-height: 1.1;
     margin-bottom: 16px;
-    background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
 }
 
 .hero-typing {
@@ -533,7 +532,7 @@ ul { list-style: none; }
 /* === PAGE HEADER === */
 .page-header {
     padding: 140px 0 60px;
-    background: linear-gradient(135deg, var(--bg-primary), var(--bg-tertiary));
+    background: var(--bg-secondary);
     text-align: center;
 }
 
@@ -762,7 +761,7 @@ ul { list-style: none; }
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--accent), var(--neon-purple));
+    background: var(--accent);
     color: #fff;
     font-weight: 700;
     font-size: 1.2rem;
