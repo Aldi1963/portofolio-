@@ -252,7 +252,8 @@ CREATE TABLE IF NOT EXISTS `skills` (
     `color` VARCHAR(7) DEFAULT '#0066ff',
     `sort_order` INT DEFAULT 0,
     `is_active` TINYINT(1) DEFAULT 1,
-    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY `uk_skills_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- =============================================

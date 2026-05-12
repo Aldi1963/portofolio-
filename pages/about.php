@@ -7,9 +7,9 @@ $pageTitle = lang('about_title');
 $pageDescription = 'Learn more about ' . getSetting('owner_name', 'Aldi') . ' - ' . getSetting('owner_title', 'Full Stack Developer');
 include TEMPLATES_PATH . '/header.php';
 
-// Get skills
+// Get skills (GROUP BY prevents showing duplicates if they exist in DB)
 try {
-    $skills = db()->fetchAll("SELECT * FROM skills WHERE is_active = 1 ORDER BY sort_order ASC");
+    $skills = db()->fetchAll("SELECT id, name, percentage, category, icon, color, sort_order, is_active, created_at FROM skills WHERE is_active = 1 GROUP BY name ORDER BY sort_order ASC");
 } catch (Exception $e) {
     $skills = [];
 }

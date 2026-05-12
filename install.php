@@ -222,6 +222,23 @@ function performInstallation(array $data): array {
             }
         }
         
+        // Clean up any duplicate skills that may have existed before UNIQUE key was added
+        try {
+            $pdo->exec("DELETE s1 FROM skills s1 INNER JOIN skills s2 ON s1.name = s2.name AND s1.id > s2.id");
+        } catch (PDOException $e) {
+            // Ignore if fails (table might not exist yet on fresh install)
+        }
+        
+        // Add UNIQUE key if not already present (for upgrades from older schema)
+        try {
+            $hasIndex = $pdo->query("SELECT COUNT(*) FROM information_schema.STATISTICS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'skills' AND INDEX_NAME = 'uk_skills_name'")->fetchColumn();
+            if (!$hasIndex) {
+                $pdo->exec("ALTER TABLE skills ADD UNIQUE KEY uk_skills_name (name)");
+            }
+        } catch (PDOException $e) {
+            // Non-critical, continue
+        }
+        
         $msg = "Executed $executed SQL statements";
         if ($failed > 0) $msg .= " ($failed skipped/failed)";
         $steps[] = ['step' => 'db_import', 'status' => 'done', 'message' => $msg, 'failed_statements' => $failedStmts];
