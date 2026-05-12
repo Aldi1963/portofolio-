@@ -1,0 +1,23 @@
+# Environment
+.env
+
+# Uploads (keep structure, ignore content)
+uploads/*
+!uploads/.gitkeep
+
+# Cache
+cache/*
+!cache/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Lock file
+cache/.installed
