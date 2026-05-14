@@ -26,7 +26,7 @@ if (config('maintenance_mode') === '1' && !isLoggedIn()) {
 trackVisitor();
 
 // Get requested URL
-$url = isset($_GET['url']) ? rtrim($_GET['url'], '/') : '';
+$url = isset($_GET['url']) ? trim($_GET['url'], '/') : '';
 $url = filter_var($url, FILTER_SANITIZE_URL);
 
 // Load routes
@@ -58,7 +58,7 @@ if (array_key_exists($url, $routes)) {
 // Check admin authentication for admin routes
 if (strpos($page, 'admin/') === 0 && $page !== 'admin/login' && $page !== 'admin/logout' && $page !== 'admin/google-callback') {
     if (!isLoggedIn()) {
-        redirect(APP_URL . '/admin/login');
+        redirect(baseUrl('admin/login'));
         exit;
     }
 }

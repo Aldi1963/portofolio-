@@ -49,6 +49,14 @@ $typingTexts = getSetting('hero_typing_texts', 'Web Developer,UI/UX Designer,Fre
 
 <!-- Hero Section -->
 <section class="hero" id="hero">
+    <!-- Animated clouds background -->
+    <div class="hero-clouds">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="cloud cloud-4"></div>
+        <div class="cloud cloud-5"></div>
+    </div>
     <!-- Solid dark overlay -->
     <div class="hero-overlay"></div>
     

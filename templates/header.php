@@ -18,7 +18,8 @@ $bodyClass = $bodyClass ?? '';
     <?= metaTags($pageTitle, $pageDescription, $pageImage, $pageType) ?>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?= asset('images/favicon.png') ?>">
+    <?php $favicon = getSetting('site_favicon'); ?>
+    <link rel="icon" type="image/png" href="<?= !empty($favicon) ? uploadUrl($favicon) : asset('images/favicon.png') ?>">
     
     <!-- PWA Support -->
     <link rel="manifest" href="/manifest.json">
@@ -77,7 +78,12 @@ $bodyClass = $bodyClass ?? '';
     <nav class="navbar" id="navbar">
         <div class="container">
             <a href="<?= baseUrl() ?>" class="navbar-brand">
-                <span class="brand-text">&lt;<span class="brand-highlight"><?= getSetting('owner_name', 'Aldi') ?></span>/&gt;</span>
+                <?php $siteLogo = getSetting('site_logo'); ?>
+                <?php if (!empty($siteLogo)): ?>
+                    <img src="<?= uploadUrl($siteLogo) ?>" alt="<?= getSetting('site_name', APP_NAME) ?>" class="brand-logo">
+                <?php else: ?>
+                    <span class="brand-text">&lt;<span class="brand-highlight"><?= getSetting('owner_name', 'Aldi') ?></span>/&gt;</span>
+                <?php endif; ?>
             </a>
             
             <button class="navbar-toggler" id="navbar-toggler" aria-label="Toggle navigation">

@@ -251,6 +251,17 @@ function compressImage($source, $destination, $quality = 80, $maxWidth = 1920, $
     switch ($mime) {
         case 'image/jpeg':
             $image = imagecreatefromjpeg($source);
+            // Fix EXIF orientation
+            if (function_exists('exif_read_data')) {
+                $exif = @exif_read_data($source);
+                if ($exif && isset($exif['Orientation'])) {
+                    switch ($exif['Orientation']) {
+                        case 3: $image = imagerotate($image, 180, 0); break;
+                        case 6: $image = imagerotate($image, -90, 0); $tmp = $width; $width = $height; $height = $tmp; break;
+                        case 8: $image = imagerotate($image, 90, 0); $tmp = $width; $width = $height; $height = $tmp; break;
+                    }
+                }
+            }
             break;
         case 'image/png':
             $image = imagecreatefrompng($source);

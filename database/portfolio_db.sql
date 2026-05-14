@@ -9,9 +9,8 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+07:00";
 
-CREATE DATABASE IF NOT EXISTS `portfolio_db` 
-DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `portfolio_db`;
+-- Database should be created via cPanel first
+-- Then select the database in phpMyAdmin before importing
 
 -- =============================================
 -- Table: users (Admin accounts)
